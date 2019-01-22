@@ -50,7 +50,7 @@ for galaxy in galaxies:
 	f.beam[1].set_major(hdr_lr['BMAJ'])
 	f.beam[1].set_minor(hdr_lr['BMIN'])
 	f.beam[1].set_angle(hdr_lr['BPA'])
-	g = aplpy.FITSFigure(mom_dir+galaxy+'-LR_mom1msk_toplot.fits',figure=fig,subplot=(1,2,2))
+	g = aplpy.FITSFigure(mom_dir+galaxy+'-LR_mom1m_toplot.fits',figure=fig,subplot=(1,2,2))
 	g.recenter(hdr_hr['CRVAL1'],hdr_hr['CRVAL2'],radius=0.25*zoomscale)
 	g.show_colorscale()
 	g.tick_labels.set_xformat('hh:mm:ss')
@@ -68,4 +68,5 @@ for galaxy in galaxies:
 	#plt.show()
 	h_hr.close()
 	h_lr.close()
+	plt.close(fig)
 

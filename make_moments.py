@@ -5,12 +5,18 @@ from astropy.io import fits
 from os import getcwd
 from subprocess import call
 from tqdm import tqdm
+import sys
+
+if len(sys.argv) != 2:
+	print 'Error: you should provide a wildcard for the cubes'
+	print '       (e.g. *-cube.fits)'
+	print '       You may need to escape this wildcard.'
+	exit()
 
 # This sets the clip value for source finding (in sigmas)
 clipval = 4.
 
-#cubelist = sorted(glob('*cube.fits'))
-cubelist = sorted(glob('*LR-cube.fits'))
+cubelist = sorted(glob(sys.argv[1]))
 pipeline_cmd = '/data/LIBRA_1/hea189/SoFiA/SoFiA-1.2.0/sofia_pipeline.py'
 
 def getkernelxy(hdu, scale):
