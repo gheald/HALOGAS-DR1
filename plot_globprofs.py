@@ -103,7 +103,11 @@ def main(args):
 			fig = plt.figure(figsize=(8.,5.))
 			plt.plot(velaxis_hr,prof_hr,'k--')
 			plt.plot(velaxis_lr,prof_lr,'k-')
-			plt.xlim((min(velaxis_lr),max(velaxis_lr)))
+			threshold = 0.05*max(prof_lr)
+			min_nz = min(velaxis_lr[prof_lr>threshold])
+			max_nz = max(velaxis_lr[prof_lr>threshold])
+			width_nz = max_nz - min_nz
+			plt.xlim((min_nz-0.15*width_nz,max_nz+0.15*width_nz))
 			plt.ylim(bottom=0)
 			plt.xlabel('Velocity (km s$\mathregular{^{-1}}$)')
 			plt.ylabel('Flux density (Jy)')
