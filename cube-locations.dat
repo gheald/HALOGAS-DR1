@@ -1,5 +1,7 @@
 NGC0672-LR /DATA/SERPENS_1/hea189/d1/data/wsrt/09a/n0672/final_cubes/linCube_30
 NGC0672-HR /DATA/SERPENS_1/hea189/d1/data/wsrt/09a/n0672/final_cubes/linCube_robust0
+NGC0891-LR /DATA/SERPENS_1/hea189/d0/data/contrib/n0891/oosterloo/FOR-RELEASE/cube30s
+NGC0891-HR /DATA/SERPENS_1/hea189/d0/data/contrib/n0891/oosterloo/FOR-RELEASE/cube15s
 NGC0925-LR /DATA/SERPENS_1/hea189/d1/data/wsrt/09a/n0925/final_cubes/linCube_30
 NGC0925-HR /DATA/SERPENS_1/hea189/d1/data/wsrt/09a/n0925/final_cubes/linCube_robust0
 NGC0949-HR /DATA/SERPENS_1/hea189/d1/data/wsrt/09b/n0949/linCube
@@ -10,6 +12,8 @@ NGC1003-HR /DATA/SERPENS_1/hea189/d1/data/wsrt/09b/n1003/linCube
 NGC1003-LR /DATA/SERPENS_1/hea189/d1/data/wsrt/09b/n1003/linCube30
 UGC4278-HR /DATA/SERPENS_1/hea189/d1/data/wsrt/09b/u4278/linCube_robust0
 UGC4278-LR /DATA/SERPENS_1/hea189/d1/data/wsrt/09b/u4278/linCube_robust1
+NGC2403-HR /DATA/SERPENS_1/hea189/d0/data/contrib/n2403/fraternali/FOR-RELEASE/cube15
+NGC2403-LR /DATA/SERPENS_1/hea189/d0/data/contrib/n2403/fraternali/FOR-RELEASE/cube30
 NGC2541-HR /DATA/SERPENS_1/hea189/d1/data/wsrt/10a/n2541/linCube
 NGC2541-LR /DATA/SERPENS_1/hea189/d1/data/wsrt/10a/n2541/linCube30
 NGC3198-HR /DATA/SERPENS_1/hea189/d1/data/wsrt/09b/n3198/final_cubes/linCube
