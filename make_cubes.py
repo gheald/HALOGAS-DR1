@@ -30,7 +30,7 @@ def main(args):
 	for line in open(args.location_file):
 		sline = line.split()
 		cube_id = sline[0]
-		if args.galaxy not in cube_id:
+		if args.galaxy not in cube_id and args.galaxy != '__ALL__':
 			continue
 		cubename = '%s-cube.fits'%cube_id
 		logprint('\n####\n',logf)
