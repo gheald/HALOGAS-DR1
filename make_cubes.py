@@ -30,6 +30,8 @@ def main(args):
 	for line in open(args.location_file):
 		sline = line.split()
 		cube_id = sline[0]
+		if args.galaxy not in cube_id:
+			continue
 		cubename = '%s-cube.fits'%cube_id
 		logprint('\n####\n',logf)
 		if isfile(cubename):
@@ -53,10 +55,19 @@ def main(args):
 		if naxis == 4:
 			logprint('Removing Stokes axis from %s'%cubename,logf)
 			removeaxis(hdu)
-		# Add header entries that say it's HALOGAS data and give ADS reference
+		# Add header entries that say it's HALOGAS data and give ADS reference(s)
+		if 'NGC0891' in cube_id:
+			ads_ref = 'http://adsabs.harvard.edu/abs/2007AJ....134.1019O'
+			header.insert('EPOCH',('COMMENT',ads_ref),after=True)
+			header.insert('EPOCH',('COMMENT','Data for NGC 891 adopted by HALOGAS described by:'),after=True)
+		elif 'NGC2403' in cube_id:
+			ads_ref = 'http://adsabs.harvard.edu/abs/2002AJ....123.3124F'
+			header.insert('EPOCH',('COMMENT',ads_ref),after=True)
+			header.insert('EPOCH',('COMMENT','Data for NGC 2403 adopted by HALOGAS described by:'),after=True)
 		ads_ref = 'http://adsabs.harvard.edu/abs/2011A%26A...526A.118H'
 		header.insert('EPOCH',('COMMENT',ads_ref),after=True)
 		header.insert('EPOCH',('COMMENT','Please include this reference in any publication:'),after=True)
+		header.insert('EPOCH',('COMMENT','Data Release 1: https://doi.org/10.5281/zenodo.2552349'),after=True)
 		header.insert('EPOCH',('COMMENT','Project website: http://www.astron.nl/halogas'),after=True)
 		header.insert('EPOCH',('COMMENT','Data released as part of HALOGAS DR1'),after=True)
 		# Flush and close the FITS file
@@ -68,6 +79,7 @@ def main(args):
 
 
 ap = argparse.ArgumentParser()
+ap.add_argument('--galaxy','-g',help='Name of galaxy to process (which can either be one galaxy or all of them) [default all]',default='__ALL__')
 ap.add_argument('--location_file','-l',help='Name of file containing cube locations [default cube-locations.dat]',default='cube-locations.dat')
 ap.add_argument('--log_file','-f',help='Name of output log file [default log.txt]',default='log.txt')
 ap.add_argument('--overwrite','-o',help='Overwrite any existing FITS files that already exist? [default False]',default=False,action='store_true')
