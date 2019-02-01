@@ -45,6 +45,7 @@ def get_galaxies():
 def main(args):
 
 	mom_dir = 'MOMENTS/'
+	plot_dir = 'PLOTS/'
 	
 	if args.galaxies == '__ALL__':
 		galaxies = get_galaxies()
@@ -111,7 +112,7 @@ def main(args):
 			plt.ylim(bottom=0)
 			plt.xlabel('Velocity (km s$\mathregular{^{-1}}$)')
 			plt.ylabel('Flux density (Jy)')
-			plt.savefig(galaxy+'-profs.png',dpi=120,bbox_inches='tight')
+			plt.savefig(plot_dir+galaxy+'-profs.png',dpi=120,bbox_inches='tight')
 			plt.close(fig)
 		call(['rm','-rf','tmp-lr.fits','tmp-hr.fits','lr','hr'])
 
