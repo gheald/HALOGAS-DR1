@@ -16,7 +16,7 @@ for galaxy in sorted(distances.keys()):
 	pfile = galaxy+'-gprof-lr.txt'
 	if not isfile(pfile): continue
 	vel, prof = np.loadtxt(pfile, usecols=(1,2), unpack=True)
-	total = np.sum(prof)*(vel[1]-vel[0])
+	total = np.sum(prof)*np.abs(vel[1]-vel[0])
 	mass = total * 2.36e5 * distance**2
 	for line in open('globprof-log.txt'):
 		if 'W50' in line and galaxy in line:

@@ -31,7 +31,7 @@ def get_widths(v, p, fit=False):
 		v20 = v[i20]
 		w50 = max(v50) - min(v50)
 		w20 = max(v20) - min(v20)
-	return w50, w20
+	return np.abs(w50), np.abs(w20)
 
 def get_galaxies():
 	cubelist = sorted(glob.glob('*-cube.fits'))
