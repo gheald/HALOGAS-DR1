@@ -13,10 +13,10 @@ for cube in cubes:
 	if name not in galaxies:
 		galaxies.append(name)
 #print galaxies
-no_zoom = ['NGC0925', 'NGC4274', 'UGC4278', 'NGC4631', 'NGC4258', 'NGC5055']
+no_zoom = ['NGC0891', 'NGC0925', 'NGC2403', 'NGC4274', 'UGC4278', 'NGC4631', 'NGC4258', 'NGC5055']
 
 mom_dir = 'MOMENTS/'
-plot_dir = mom_dir+'PLOTS/'
+plot_dir = 'PLOTS/'
 
 for galaxy in galaxies:
 	if galaxy in no_zoom:
