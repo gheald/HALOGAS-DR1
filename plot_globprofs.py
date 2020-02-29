@@ -96,6 +96,10 @@ def main(args):
 			call(['imspec','in=hr','axes=ra,dec','device=/null','options=list,eformat,guaranteespaces,noheader','log=%s-gprof-hr.txt'%galaxy], stderr=logf, stdout=logf)
 		velaxis_lr, prof_lr = np.loadtxt('%s-gprof-lr.txt'%galaxy,usecols=(1,2),unpack=True)
 		velaxis_hr, prof_hr = np.loadtxt('%s-gprof-hr.txt'%galaxy,usecols=(1,2),unpack=True)
+		if isfile(galaxy.lower()+'-gprof-sd.txt'):
+			velaxis_sd, prof_sd = np.loadtxt('%s-gprof-sd.txt'%galaxy.lower(),usecols=(1,2),unpack=True)
+		else:
+			velaxis_sd = prof_sd = 0.
 		w50, w20 = get_widths(velaxis_lr, prof_lr, fit=args.fitwidth)
 		tqdm.write('%s: W50 = %f, W20 = %f'%(galaxy, w50, w20))
 		print >>logf, '%s: W50 = %f, W20 = %f'%(galaxy, w50, w20)
@@ -104,6 +108,7 @@ def main(args):
 			fig = plt.figure(figsize=(8.,5.))
 			plt.plot(velaxis_hr,prof_hr,'k--')
 			plt.plot(velaxis_lr,prof_lr,'k-')
+			plt.plot(velaxis_sd,prof_sd,'k-',alpha=0.5)
 			threshold = 0.05*max(prof_lr)
 			min_nz = min(velaxis_lr[prof_lr>threshold])
 			max_nz = max(velaxis_lr[prof_lr>threshold])
