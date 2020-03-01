@@ -45,6 +45,7 @@ for galaxy in galaxies:
     hdr['CDELT1'] *= 60.
     hdr['CDELT2'] /= 1000.
     hdr['CUNIT1'] = 'arcmin'
+    hdr['CTYPE2'] = 'VELOCITY'
     hdr['CUNIT2'] = 'km/s'
     hdr['CRVAL2'] /= 1000.
     pv_slice.header = hdr

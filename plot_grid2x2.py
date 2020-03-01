@@ -57,9 +57,9 @@ for line in open(vals_file):
 	gvals[galname]['VROT'] = float(sline[6])
 	gvals[galname]['INCL'] = float(sline[7])
 
-print opt
-print cont
-print gvals
+#print opt
+#print cont
+#print gvals
 
 for galaxy in galaxies:
 	print galaxy
