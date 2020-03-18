@@ -21,7 +21,7 @@ else:
 		if name not in galaxies:
 			galaxies.append(name)
 #print galaxies
-no_zoom = ['NGC2403', 'NGC4274', 'UGC4278', 'NGC4631', 'NGC4258', 'NGC5055']
+no_zoom = ['NGC2403', 'NGC4274', 'NGC4631', 'NGC4258', 'NGC5055']
 double_zoom = ['NGC0949', 'NGC4062', 'NGC4274', 'NGC4448', 'NGC5023', 'NGC5229', 'UGC2082', 'UGC7774']
 
 mom_dir = 'MOMENTS/'
@@ -62,6 +62,7 @@ for line in open(vals_file):
 #print gvals
 
 for galaxy in galaxies:
+	if 'not_specified' in cont[galaxy]: continue
 	print galaxy
 	if galaxy in no_zoom:
 		zoomscale = 2.
@@ -83,7 +84,7 @@ for galaxy in galaxies:
 	f = aplpy.FITSFigure(mom_dir+galaxy+'-HR_coldens_toplot.fits',figure=fig,subplot=[0.1,0.5,0.4,0.4])
 	f.recenter(hdr_hr['CRVAL1'],hdr_hr['CRVAL2'],radius=0.25*zoomscale)
 	print "Plotting column density grayscale"
-	f.show_grayscale(vmin=0.01,vmax=2.5,invert=True)
+	f.show_grayscale(vmin=0.01,vmax=2.5,invert=True,aspect='auto')
 	f.show_ellipses(gvals[galaxy]['CENTER'].ra.value, gvals[galaxy]['CENTER'].dec.value,
 		gvals[galaxy]['DIAMETER']/3600., 1./3600., angle=gvals[galaxy]['PA'],
 		edgecolor='black', zorder=100, alpha=0.8, facecolor='none')
@@ -111,7 +112,7 @@ for galaxy in galaxies:
 	o = aplpy.FITSFigure(opt[galaxy][0],figure=fig,subplot=[0.1,0.1,0.4,0.4])
 	o.recenter(hdr_hr['CRVAL1'],hdr_hr['CRVAL2'],radius=0.25*zoomscale)
 	print "Plotting optical grayscale"
-	o.show_grayscale(vmin=opt[galaxy][1][0],vmax=opt[galaxy][1][1],invert=True,stretch='sqrt')
+	o.show_grayscale(vmin=opt[galaxy][1][0],vmax=opt[galaxy][1][1],invert=True,stretch='sqrt',aspect='auto')
 	o.show_contour(mom_dir+galaxy+'-LR_coldens.fits',levels=1.e19*2.**np.arange(8),colors='k')
 	o.tick_labels.set_xformat('hh:mm:ss')
 	o.tick_labels.set_yformat('dd:mm')
@@ -121,7 +122,7 @@ for galaxy in galaxies:
 	g = aplpy.FITSFigure(mom_dir+galaxy+'-LR_mom1m_toplot.fits',figure=fig,subplot=[0.5,0.5,0.4,0.4])
 	g.recenter(hdr_hr['CRVAL1'],hdr_hr['CRVAL2'],radius=0.25*zoomscale)
 	print "Plotting velocity field colormap"
-	g.show_colorscale()
+	g.show_colorscale(aspect='auto')
 	g.show_ellipses(gvals[galaxy]['CENTER'].ra.value, gvals[galaxy]['CENTER'].dec.value,
 		gvals[galaxy]['DIAMETER']/3600., 1./3600., angle=gvals[galaxy]['PA'],
 		edgecolor='black', zorder=100, alpha=0.8, facecolor='none')
@@ -131,7 +132,7 @@ for galaxy in galaxies:
 	dlevels = np.arange(20.,max_dvel,20.)
 	g.show_contour(mom_dir+galaxy+'-LR_mom1m_toplot.fits',
 		levels=gvals[galaxy]['VSYS']+dlevels,
-		colors='gray', zorder=10, alpha=0.8)
+		colors='gray', zorder=10, alpha=0.8),
 	g.show_contour(mom_dir+galaxy+'-LR_mom1m_toplot.fits',
 		levels=gvals[galaxy]['VSYS']-np.flip(dlevels),
 		colors='gray', zorder=10, alpha=0.8)
@@ -153,7 +154,7 @@ for galaxy in galaxies:
 	c = aplpy.FITSFigure(cont[galaxy],figure=fig,subplot=[0.5,0.1,0.4,0.4])
 	c.recenter(hdr_hr['CRVAL1'],hdr_hr['CRVAL2'],radius=0.25*zoomscale)
 	print "Plotting continuum grayscale"
-	c.show_grayscale(vmin=-0.0001,vmax=0.001,invert=True)
+	c.show_grayscale(vmin=-0.0001,vmax=0.001,invert=True,aspect='auto')
 	c.tick_labels.set_xformat('hh:mm:ss')
 	c.tick_labels.set_yformat('dd:mm')
 	c.axis_labels.hide_y()

@@ -4,6 +4,7 @@ from pvextractor import PathFromCenter, extract_pv_slice
 from astropy import units as u
 from astropy.coordinates import SkyCoord
 import glob, sys
+import numpy as np
 
 cubes = sorted(glob.glob('*-cube.fits'))
 if len(sys.argv) > 1:
@@ -31,6 +32,17 @@ for line in open(vals_file):
 	gvals[galname]['VROT'] = float(sline[6])
 	gvals[galname]['INCL'] = float(sline[7])
 
+velrange = {'NGC0891': (100.,900.),
+            'NGC4274': (600.,1200.),
+            'NGC4448': (-999.,600.),
+            'NGC4559': (-999.,1000.),
+            'NGC4631': (-999.,850.),
+            'NGC5055': (200.,800.),
+            'NGC5229': (-999.,470.),
+            'UGC2082': (550.,850.),
+            'UGC4278': (400.,700.),
+            'UGC7774': (350.,680.)}
+
 for galaxy in galaxies:
     pv_path = PathFromCenter(center=gvals[galaxy]['CENTER'],
         length=gvals[galaxy]['DIAMETER']*u.arcsec,
@@ -39,8 +51,24 @@ for galaxy in galaxies:
 
     pv_slice = extract_pv_slice(galaxy+'-LR-cube.fits', pv_path)
 
-    # Tweak header values to prepare for plotting in the next step
     hdr = pv_slice.header
+
+    vaxis = (np.arange(hdr['NAXIS2'])+1.-hdr['CRPIX2'])*hdr['CDELT2']+hdr['CRVAL2']
+    vaxis /= 1000.
+    if galaxy in velrange.keys():
+        print 'REDUCING VELOCITY RANGE'
+        vmin, vmax = velrange[galaxy]
+        if vmin < -998.: vmin = np.min(vaxis)
+        gvp = np.where(np.logical_and(vaxis<=vmax,vaxis>=vmin))
+        print np.min(gvp), np.max(gvp), len(vaxis)
+        data = pv_slice.data
+        newdata = data[gvp,:]
+        pv_slice.data = newdata
+        voffset = np.min(gvp)
+    else:
+        voffset = 0
+
+    # Tweak header values to prepare for plotting in the next step
     hdr['CRPIX1'] = hdr['NAXIS1']/2
     hdr['CDELT1'] *= 60.
     hdr['CDELT2'] /= 1000.
@@ -48,6 +76,7 @@ for galaxy in galaxies:
     hdr['CTYPE2'] = 'VELOCITY'
     hdr['CUNIT2'] = 'km/s'
     hdr['CRVAL2'] /= 1000.
+    hdr['CRPIX2'] -= voffset
     pv_slice.header = hdr
 
     pv_slice.writeto(galaxy+'-PV.fits', overwrite=True)

@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+import sys, os
+import matplotlib
+if 'DISPLAY' not in os.environ: matplotlib.use('agg')
 from astropy.io import fits
 import glob
 import numpy as np
@@ -100,6 +103,10 @@ def main(args):
 			velaxis_sd, prof_sd = np.loadtxt('%s-gprof-sd.txt'%galaxy.lower(),usecols=(1,2),unpack=True)
 		else:
 			velaxis_sd = prof_sd = 0.
+		if isfile(galaxy+'-gprof-gb.txt'):
+			velaxis_gb, prof_gb = np.loadtxt('%s-gprof-gb.txt'%galaxy,unpack=True)
+		else:
+			velaxis_gb = prof_gb = 0.
 		w50, w20 = get_widths(velaxis_lr, prof_lr, fit=args.fitwidth)
 		tqdm.write('%s: W50 = %f, W20 = %f'%(galaxy, w50, w20))
 		print >>logf, '%s: W50 = %f, W20 = %f'%(galaxy, w50, w20)
@@ -109,6 +116,7 @@ def main(args):
 			plt.plot(velaxis_hr,prof_hr,'k--')
 			plt.plot(velaxis_lr,prof_lr,'k-')
 			plt.plot(velaxis_sd,prof_sd,'k-',alpha=0.5)
+			plt.plot(velaxis_gb,prof_gb,'k:',alpha=0.5)
 			threshold = 0.05*max(prof_lr)
 			min_nz = min(velaxis_lr[prof_lr>threshold])
 			max_nz = max(velaxis_lr[prof_lr>threshold])

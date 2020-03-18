@@ -53,7 +53,8 @@ for galaxy in galaxies:
     fig = plt.figure(figsize=(14.,5.))
     f = aplpy.FITSFigure(galaxy+'-PV.fits', figure=fig)#, subplot=[0.1,0.05,0.8,0.9])
     f.show_grayscale(vmin=-0.0004,vmax=0.001,invert=True,aspect='auto')
-    f.show_contour(galaxy+'-PV.fits',levels=10.*0.0002*2**np.arange(10.),colors='white',alpha=0.8)
+    f.show_contour(galaxy+'-PV.fits',levels=8.*0.0002*2**np.arange(10.),colors='white',alpha=0.8)
+    f.show_contour(galaxy+'-PV.fits',levels=2.*0.0002*2**np.arange(2.),colors='black',alpha=0.8)
     print 'SHOWING LINES'
     f.show_lines([hline, vline], color='gray', alpha=0.8)
     plt.savefig(plot_dir+galaxy+'-pv.pdf',bbox_inches='tight',dpi=200)
