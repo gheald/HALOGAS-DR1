@@ -49,6 +49,11 @@ def main(args):
 
 	mom_dir = 'MOMENTS/'
 	plot_dir = 'PLOTS/'
+
+	params = {'axes.labelsize': 'xx-large',
+         'xtick.labelsize':'xx-large',
+         'ytick.labelsize':'xx-large'}
+	plt.rcParams.update(params)
 	
 	if args.galaxies == '__ALL__':
 		galaxies = get_galaxies()
@@ -125,7 +130,8 @@ def main(args):
 			plt.ylim(bottom=0)
 			plt.xlabel('Velocity (km s$\mathregular{^{-1}}$)')
 			plt.ylabel('Flux density (Jy)')
-			plt.savefig(plot_dir+galaxy+'-profs.png',dpi=120,bbox_inches='tight')
+			plt.text(0.5,0.95,galaxy,transform=plt.gca().transAxes,verticalalignment='top',horizontalalignment='center',fontsize='xx-large')
+			plt.savefig(plot_dir+galaxy+'-profs.pdf',dpi=200,bbox_inches='tight')
 			plt.close(fig)
 		call(['rm','-rf','tmp-lr.fits','tmp-hr.fits','lr','hr'])
 
