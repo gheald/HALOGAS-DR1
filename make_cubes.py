@@ -67,7 +67,7 @@ def main(args):
 		ads_ref = 'http://adsabs.harvard.edu/abs/2011A%26A...526A.118H'
 		header.insert('EPOCH',('COMMENT',ads_ref),after=True)
 		header.insert('EPOCH',('COMMENT','Please include this reference in any publication:'),after=True)
-		header.insert('EPOCH',('COMMENT','Data Release 1: https://doi.org/10.5281/zenodo.2552349'),after=True)
+		header.insert('EPOCH',('COMMENT','Data Release 1 (v2): https://doi.org/10.5281/zenodo.3715549'),after=True)
 		header.insert('EPOCH',('COMMENT','Project website: http://www.astron.nl/halogas'),after=True)
 		header.insert('EPOCH',('COMMENT','Data released as part of HALOGAS DR1'),after=True)
 		# Flush and close the FITS file

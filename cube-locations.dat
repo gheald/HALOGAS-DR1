@@ -28,8 +28,8 @@ NGC4274-HR /DATA/SERPENS_1/hea189/d1/data/wsrt/11a/n4274/final_cubes/linCubeUnif
 NGC4274-LR /DATA/SERPENS_1/hea189/d1/data/wsrt/11a/n4274/final_cubes/linCube30_v2
 NGC4414-HR /DATA/SERPENS_1/hea189/d1/data/wsrt/10a/n4414/linCube
 NGC4414-LR /DATA/SERPENS_1/hea189/d1/data/wsrt/10a/n4414/linCube30
-NGC4448-HR /DATA/SERPENS_1/hea189/d1/data/wsrt/13a/n4448/final_cubes/linCubeUniform
-NGC4448-LR /DATA/SERPENS_1/hea189/d1/data/wsrt/13a/n4448/final_cubes/linCube
+NGC4448-HR /DATA/SERPENS_1/hea189/d1/data/wsrt/13a/n4448/final_cubes/linCubeUniform_velfix
+NGC4448-LR /DATA/SERPENS_1/hea189/d1/data/wsrt/13a/n4448/final_cubes/linCube_velfix
 NGC4559-HR /DATA/SERPENS_1/hea189/d1/data/wsrt/11a/n4559/sunflag/linCube
 NGC4559-LR /DATA/SERPENS_1/hea189/d1/data/wsrt/11a/n4559/sunflag/linCube_30
 NGC4565-LR /DATA/SERPENS_1/hea189/d1/data/wsrt/09a/n4565/final_cubes/linCube_30
