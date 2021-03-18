@@ -111,17 +111,18 @@ def main(args):
 		if isfile(galaxy+'-gprof-gb.txt'):
 			velaxis_gb, prof_gb = np.loadtxt('%s-gprof-gb.txt'%galaxy,unpack=True)
 		else:
-			velaxis_gb = prof_gb = 0.
+			velaxis_gb = prof_gb = np.array([0.,0.])
 		w50, w20 = get_widths(velaxis_lr, prof_lr, fit=args.fitwidth)
 		tqdm.write('%s: W50 = %f, W20 = %f'%(galaxy, w50, w20))
 		print >>logf, '%s: W50 = %f, W20 = %f'%(galaxy, w50, w20)
 		if not args.noplot:
 			tqdm.write('%s: Producing plot'%galaxy)
 			fig = plt.figure(figsize=(8.,5.))
-			plt.plot(velaxis_hr,prof_hr,'k--')
-			plt.plot(velaxis_lr,prof_lr,'k-')
-			plt.plot(velaxis_sd,prof_sd,'k-',alpha=0.5)
-			plt.plot(velaxis_gb,prof_gb,'k:',alpha=0.5)
+			plt.plot(velaxis_hr,prof_hr,'k--',zorder=40)
+			plt.plot(velaxis_lr,prof_lr,'k-',zorder=30)
+			plt.plot(velaxis_sd,prof_sd,'k-',alpha=0.5,zorder=20)
+			#plt.plot(velaxis_gb,prof_gb,'k:',alpha=0.5)
+			plt.fill_between(velaxis_gb,prof_gb,y2=np.zeros((len(prof_gb))),color='k',alpha=0.3,zorder=10)
 			threshold = 0.05*max(prof_lr)
 			min_nz = min(velaxis_lr[prof_lr>threshold])
 			max_nz = max(velaxis_lr[prof_lr>threshold])
