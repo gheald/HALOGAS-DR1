@@ -109,7 +109,13 @@ for galaxy in galaxies:
 	f.show_ellipses(gvals[galaxy]['CENTER'].ra.value, gvals[galaxy]['CENTER'].dec.value,
 		gvals[galaxy]['DIAMETER']/3600., 1./3600., angle=gvals[galaxy]['PA'],
 		edgecolor='black', zorder=100, alpha=0.8, facecolor='none')
+	f.show_markers(gvals[galaxy]['CENTER'].ra.value, gvals[galaxy]['CENTER'].dec.value,
+		s=25, c='r', marker='+',zorder=150)
 	f.show_contour(mom_dir+galaxy+'-LR_coldens.fits',levels=1.e19*2.**np.arange(8),colors='k')
+	f.add_label(0.05, 0.95, galaxy.replace('C0','C').replace('C','C '),
+		relative=True, ha='left', va='center', weight='semibold',
+		bbox=dict(boxstyle='round', ec='black', fc='white'),
+		size='large', zorder=200)
 	f.tick_labels.set_xformat('hh:mm:ss')
 	f.tick_labels.set_yformat('dd:mm')
 	f.axis_labels.hide_x()
@@ -143,6 +149,10 @@ for galaxy in galaxies:
 	o.add_grid()
 	o.grid.set_color('black')
 	o.grid.set_alpha(0.2)
+	o.add_beam(major=hdr_lr['BMAJ'], minor=hdr_lr['BMIN'], angle=hdr_lr['BPA'])
+	o.beam.set_color('black')
+	o.beam.set_frame(True)
+	o.beam.set_corner('bottom right')
 	g = aplpy.FITSFigure(mom_dir+galaxy+'-LR_mom1m_toplot.fits',figure=fig,subplot=[0.5,0.5,0.4,0.4])
 	g.recenter(hdr_hr['CRVAL1'],hdr_hr['CRVAL2'],radius=0.25*zoomscale)
 	print("Plotting velocity field colormap")
@@ -150,6 +160,8 @@ for galaxy in galaxies:
 	g.show_ellipses(gvals[galaxy]['CENTER'].ra.value, gvals[galaxy]['CENTER'].dec.value,
 		gvals[galaxy]['DIAMETER']/3600., 1./3600., angle=gvals[galaxy]['PA'],
 		edgecolor='black', zorder=100, alpha=0.8, facecolor='none')
+	g.show_markers(gvals[galaxy]['CENTER'].ra.value, gvals[galaxy]['CENTER'].dec.value,
+		s=25, c='r', marker='+', zorder=150)
 	g.show_contour(mom_dir+galaxy+'-LR_mom1m_toplot.fits', levels=np.array([gvals[galaxy]['VSYS']]),
 		colors='white', zorder=10, alpha=1.)
 	max_dvel = gvals[galaxy]['VROT']*np.sin(gvals[galaxy]['INCL']*np.pi/180.)
@@ -187,6 +199,10 @@ for galaxy in galaxies:
 	c.add_grid()
 	c.grid.set_color('black')
 	c.grid.set_alpha(0.2)
+	c.add_beam()
+	c.beam.set_color('black')
+	c.beam.set_frame(True)
+	c.beam.set_corner('bottom right')
 	if galaxy in polgals:
 		print('PLOTTING POLARIZATION VALUES')
 		c.show_contour(data=pol[galaxy][0], levels=np.array([pol[galaxy][1]]), linewidths=1., colors='green')
