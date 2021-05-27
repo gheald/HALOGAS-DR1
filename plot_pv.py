@@ -55,8 +55,11 @@ for galaxy in galaxies:
     f.show_grayscale(vmin=-0.0004,vmax=0.001,invert=True,aspect='auto')
     f.show_contour(galaxy+'-PV.fits',levels=8.*0.0002*2**np.arange(10.),colors='white',alpha=0.8)
     f.show_contour(galaxy+'-PV.fits',levels=2.*0.0002*2**np.arange(2.),colors='black',alpha=0.8)
+    f.show_contour(galaxy+'-PV.fits',levels=-2.*0.0002*2**np.arange(1.),colors='black',alpha=0.8,linestyles='dotted')
     print 'SHOWING LINES'
     f.show_lines([hline, vline], color='gray', alpha=0.8)
+    f.tick_labels.set_font(size='large')
+    f.axis_labels.set_font(size='large')
     plt.savefig(plot_dir+galaxy+'-pv.pdf',bbox_inches='tight',dpi=200)
     plt.close(fig)
     print 'Done with',galaxy

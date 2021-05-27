@@ -48,6 +48,7 @@ for line in open(cont_file):
 pol = {}
 polgals = []
 polvecs = []
+plot_pol_products = False
 for line in open(pol_file):
 	sline = line.split()
 	galname = sline[0]
@@ -111,13 +112,15 @@ for galaxy in galaxies:
 		edgecolor='black', zorder=100, alpha=0.8, facecolor='none')
 	f.show_markers(gvals[galaxy]['CENTER'].ra.value, gvals[galaxy]['CENTER'].dec.value,
 		s=25, c='r', marker='+',zorder=150)
-	f.show_contour(mom_dir+galaxy+'-LR_coldens.fits',levels=1.e19*2.**np.arange(8),colors='k')
+	f.show_contour(mom_dir+galaxy+'-LR_coldens.fits',levels=2.e19*2.**np.arange(8),colors='k')
 	f.add_label(0.05, 0.95, galaxy.replace('C0','C').replace('C','C '),
 		relative=True, ha='left', va='center', weight='semibold',
 		bbox=dict(boxstyle='round', ec='black', fc='white'),
-		size='large', zorder=200)
+		size='x-large', zorder=200)
 	f.tick_labels.set_xformat('hh:mm:ss')
 	f.tick_labels.set_yformat('dd:mm')
+	f.tick_labels.set_font(size='large')
+	f.axis_labels.set_font(size='large')
 	f.axis_labels.hide_x()
 	f.tick_labels.hide_x()
 	f.add_colorbar()
@@ -143,9 +146,11 @@ for galaxy in galaxies:
 	o.recenter(hdr_hr['CRVAL1'],hdr_hr['CRVAL2'],radius=0.25*zoomscale)
 	print("Plotting optical grayscale")
 	o.show_grayscale(vmin=opt[galaxy][1][0],vmax=opt[galaxy][1][1],invert=True,stretch='arcsinh',aspect='auto')
-	o.show_contour(mom_dir+galaxy+'-LR_coldens.fits',levels=1.e19*2.**np.arange(8),colors='k')
+	o.show_contour(mom_dir+galaxy+'-LR_coldens.fits',levels=2.e19*2.**np.arange(8),colors='k')
 	o.tick_labels.set_xformat('hh:mm:ss')
 	o.tick_labels.set_yformat('dd:mm')
+	o.tick_labels.set_font(size='large')
+	o.axis_labels.set_font(size='large')
 	o.add_grid()
 	o.grid.set_color('black')
 	o.grid.set_alpha(0.2)
@@ -174,6 +179,8 @@ for galaxy in galaxies:
 		colors='gray', zorder=10, alpha=0.8)
 	g.tick_labels.set_xformat('hh:mm:ss')
 	g.tick_labels.set_yformat('dd:mm')
+	g.tick_labels.set_font(size='large')
+	g.axis_labels.set_font(size='large')
 	g.tick_labels.hide_y()
 	g.axis_labels.hide_y()
 	g.tick_labels.hide_x()
@@ -194,6 +201,8 @@ for galaxy in galaxies:
 	c.show_grayscale(vmin=-0.0001,vmax=0.001,invert=True,aspect='auto')
 	c.tick_labels.set_xformat('hh:mm:ss')
 	c.tick_labels.set_yformat('dd:mm')
+	c.tick_labels.set_font(size='large')
+	c.axis_labels.set_font(size='large')
 	c.axis_labels.hide_y()
 	c.tick_labels.hide_y()
 	c.add_grid()
@@ -203,7 +212,7 @@ for galaxy in galaxies:
 	c.beam.set_color('black')
 	c.beam.set_frame(True)
 	c.beam.set_corner('bottom right')
-	if galaxy in polgals:
+	if galaxy in polgals and plot_pol_products:
 		print('PLOTTING POLARIZATION VALUES')
 		c.show_contour(data=pol[galaxy][0], levels=np.array([pol[galaxy][1]]), linewidths=1., colors='green')
 		c.show_lines(pol[galaxy][2], color='red', linewidths=1)
